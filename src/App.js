@@ -2,7 +2,7 @@ import "./App.css";
 import { useEffect, useState } from "react";
 
 function Launcher() {
-  const [second, setSecond] = useState(3000);
+  const [second, setSecond] = useState(10);
   useEffect(() => {
     const timer = setInterval(() => {
       setSecond(second - 1);
@@ -12,7 +12,22 @@ function Launcher() {
       clearInterval(timer);
     };
   }, [second]);
-  return <div className="launcher">{second}</div>;
+  return <div className="launcher">{second <= 0 ? <Explosion /> : second}</div>;
+}
+
+function Explosion() {
+  return (
+    <div styles={"width=880px"}>
+      <iframe
+        title="explosion"
+        allow="fullscreen"
+        frameBorder="0"
+        height="200"
+        src="https://giphy.com/embed/8qNxiy6qwTABW6NpmX/video"
+        width="480"
+      ></iframe>
+    </div>
+  );
 }
 
 function App() {
