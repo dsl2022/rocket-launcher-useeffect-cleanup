@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useState } from "react";
+
+function Launcher() {
+  const [second, setSecond] = useState(3000);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSecond(second - 1);
+      console.log(second);
+    }, 1000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [second]);
+  return <div className="launcher">{second}</div>;
+}
 
 function App() {
+  const [launch, setLaunch] = useState(true);
+  console.log({ launch });
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {launch ? <Launcher /> : null}
+      <button onClick={() => setLaunch(!launch)}>
+        {launch ? "stop" : "start"}
+      </button>
     </div>
   );
 }
